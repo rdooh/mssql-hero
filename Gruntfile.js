@@ -7,21 +7,6 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-
-    // Clean Config
-    clean: {
-      dist: {
-        files: [{
-          dot: true,
-          src: [
-            '.tmp',
-            'dist/*',
-            '!dist/.git*'
-          ]
-        }]
-      },
-      server: ['.tmp'],
-    },
     
     delay: 300,
     
@@ -35,19 +20,6 @@ module.exports = function (grunt) {
       coffee: {
         files: ['<%= jshint.coffee.src %>'],
         tasks: ['coffee:glob_to_multiple']
-      },
-      app: {
-        files: '<%= jshint.app.src %>',
-        tasks: ['jshint:app'],
-        options: {
-          livereload: true,
-          nospawn: true, //Without this option specified express won't be reloaded
-          atBegin: true
-        }
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'nodeunit']
       }
     },
 
@@ -78,14 +50,8 @@ module.exports = function (grunt) {
       gruntfile: {
         src: 'Gruntfile.js'
       },
-      app: {
-        src: ['app/**/*.js']
-      },
       coffee: {
         src: ['src/**/*.coffee']
-      },
-      test: {
-        src: ['test/**/*.js']
       }
     }
 
