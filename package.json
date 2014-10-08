@@ -1,9 +1,28 @@
 {
   "name": "mssql-hero",
-  "version": "0.0.2",
+  "description": "Easy-to-use MSSQL middleware for Express.",
+  "keywords": [
+    "database",
+    "mssql",
+    "sql",
+    "express"
+  ],
+  "version": "0.0.4",
+  "main": "index.js",
   "email":"rob.dooh@threestonestudios.com",
   "auth":"Rob Dooh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdooh/mssql-hero"
+  },
+  "homepage": "https://github.com/rdooh/mssql-hero",
   "private": false,
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
   "dependencies": {
     "mssql": "~0.5.5"
   },
@@ -17,7 +36,7 @@
   },
   "engines": {
     "node": ">=0.10.30",
-    "npm": "1.4.23"
+    "npm": ">=1.4.23"
   }
   
 }

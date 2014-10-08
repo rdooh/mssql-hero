@@ -9,7 +9,7 @@ This uses [node-mssql](https://github.com/patriksimek/node-mssql), but organizes
 - You can pass callbacks for both success and failure
 
 
-## What's new in 0.0.1 (stable, npm)
+## What's new in 0.0.4 (stable, npm)
 
 - Well, everything ;)
 

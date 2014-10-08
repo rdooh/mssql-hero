@@ -1,4 +1,4 @@
-var SQL, exports, _ints, _processAll, _processInts, _processVarChars, _varchars;
+var SQL, exports, _fail, _ints, _processAll, _processInts, _processVarChars, _varchars;
 
 SQL = require("mssql");
 
@@ -27,12 +27,17 @@ _processAll = function(ps) {
   _processVarChars(ps);
 };
 
+_fail = function(err, fail) {
+  if (fail && err) {
+    fail(err);
+  } else if (err) {
+    console.log(err);
+  }
+};
+
 exports = module.exports = function(config) {
   return function(req, res, next) {
-    if (!req.Hero) {
-      req.Hero = {};
-    }
-    req.Hero.mssqlHero = {
+    req.mssqlHero = {
       AddVarChar: function(key, length) {
         _varchars.push([key, length]);
       },
@@ -50,21 +55,21 @@ exports = module.exports = function(config) {
           return function(err) {
             var ps;
             if (err) {
-              console.log(err);
+              _fail(err, fail);
             }
             ps = new SQL.PreparedStatement();
             _processAll(ps);
             ps.prepare(query, function(err) {
               if (err) {
-                console.log(err);
+                _fail(err, fail);
               }
               ps.execute(params, function(err, recordset) {
                 if (err) {
-                  console.log(err);
+                  _fail(err, fail);
                 }
                 ps.unprepare(function(err) {
                   if (err) {
-                    console.log(err);
+                    _fail(err, fail);
                   }
                   success(recordset);
                 });

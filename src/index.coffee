@@ -23,14 +23,24 @@ _processAll = (ps)->
   return
 
 
+# Run the fail method, if it exists
+_fail = (err, fail)->
+  if fail and err
+    fail(err)
+  else if err
+    console.log err
+  return
+
+
 exports = module.exports = (config) ->
 #   console.log "config added when initiated"
   return (req, res, next) ->
     # console.log "when a request comes in, this is run"
+    
     # create the Hero object if it doesn't exist
-    req.Hero = {} if !req.Hero
+    # req.Hero = {} if !req.Hero
     # create the connectionHero
-    req.Hero.mssqlHero =
+    req.mssqlHero =
 
       AddVarChar: (key, length) ->
         _varchars.push [key,length]
@@ -55,18 +65,18 @@ exports = module.exports = (config) ->
         # console.log "connecting..."
         # global connection
         SQL.connect config, (err) =>
-          console.log err if err
+          _fail(err,fail) if err
           # console.log "made connection"
           ps = new SQL.PreparedStatement()
           _processAll(ps)
           ps.prepare query, (err) =>
-            console.log err if err
+            _fail(err,fail) if err
             ps.execute params, (err, recordset) =>
-              console.log err if err
+              _fail(err,fail) if err
               # console.log "executing"
               
               ps.unprepare (err) =>
-                console.log err if err
+                _fail(err,fail) if err
                 success(recordset)
                 return
               return
